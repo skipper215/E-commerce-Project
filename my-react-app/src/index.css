@@ -22,10 +22,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 70px;
   background-color: #333;
   padding: 0 2rem;
 }
+
 
 .nav-links {
   position: absolute;
@@ -33,10 +35,11 @@
   transform: translateX(-50%);
   display: flex;
   list-style: none;
-  gap: 1.5rem;
+  gap: 6rem;
   margin: 0;
   padding: 0;
 }
+
 .nav-links a{
   left: 50%;
   transform: translateX(-50%);
@@ -45,7 +48,7 @@
   font-size: 1.25rem;
 }
 
-.nav-links a:hover{
+.nav-links a:hover, .account-links a:hover{
   color: rgb(99, 99, 99);
   cursor: pointer;
 }
@@ -54,6 +57,11 @@
   color: white;
   font-size: 1.5rem;
   z-index: 1; /* So it doesn't get overlapped */
+}
+
+.logo a{
+  text-decoration: none;
+  color: white;
 }
 
 .img-row {
@@ -68,4 +76,20 @@
   object-fit: cover; /* ensures it crops neatly */
   width: auto; /* keeps aspect ratio */
   border-radius: 10px; /* optional, for style */
+}
+
+.account {
+  color: white;
+}
+
+.account-links {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  list-style: none;
+}
+
+.account-links a {
+  text-decoration: none;
+  color: white;
 }
