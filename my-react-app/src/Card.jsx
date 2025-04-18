@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import AddToCart from './AddToCart.jsx'
 
-function Card({ id, img, alt, name, price, cart, onAddToCart, onRemoveFromCart, isCartPage }) {
-  const product = { id, img, alt, name, price }
+function Card({ product, cart, onAddToCart, onRemoveFromCart, isCartPage }) {
 
   return (
     <div className="card">
-      <img src={img} alt={alt} />
-      <p>{name}</p>
-      <p>${price}</p>
-      <AddToCart product={product} cart={cart} onAddToCart={onAddToCart} onRemoveFromCart={onRemoveFromCart} isCartPage={isCartPage}/>
+      <img src={product.img} alt={product.alt} />
+      <p>{product.name}</p>
+      <p>${product.price}</p>
+      <AddToCart product={product} cart={cart} onAddToCart={onAddToCart} onRemoveFromCart={onRemoveFromCart}/>
       
       </div>
   )

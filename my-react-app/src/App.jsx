@@ -1,8 +1,5 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect, useContext, createContext } from 'react'
 import './App.css'
-
 import { Routes, Route } from "react-router-dom"
 
 import CardList from './CardList.jsx'
@@ -10,26 +7,29 @@ import Nav from './Nav.jsx'
 import Banner from './Banner.jsx'
 import SignIn from './pages/SignIn.jsx'
 import Cart from './pages/Cart.jsx'
+import LocalStorage from './LocalStorage.jsx'
+
+export const isCartPageContext = createContext(false);
 
 function App() {
 
   const rawProducts = [
     {img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:30.00},
     {img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:100.00},
-    {img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:130.00}];
+    {img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:130.00}
+  ];
 
   const [products, setProducts] = useState([]);
-  
+
   useEffect(() => {
     const productsWithId = rawProducts.map(product => ({...product, id: crypto.randomUUID()}));
     setProducts(productsWithId);
   }, [])
   
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = LocalStorage("cart", []);
   
   const handleAddToCart = (product) => {
     const productWithCartId = {...product, cartId: crypto.randomUUID()}
-    console.log(productWithCartId);
     setCart([...cart, productWithCartId]);
     
     console.log("Cart:", productWithCartId);
@@ -40,6 +40,7 @@ function App() {
     setCart(cart.filter(item => {
       return item.cartId !== product.cartId}))
   }
+
 
   return (
     <>
@@ -53,7 +54,11 @@ function App() {
           
         } />
         <Route path="/sign-in" element={<SignIn />}/> 
-        <Route path="/cart" element={<Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>}/> 
+        <Route path="/cart" element={
+          <isCartPageContext.Provider value={true}>
+            <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>
+          </isCartPageContext.Provider>
+          }/> 
       </Routes>
       
     </>

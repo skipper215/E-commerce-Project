@@ -6,6 +6,7 @@ function CardList( { products, cart, handleAddToCart, handleRemoveFromCart, isCa
     const productList = products.map((product, index) => {
         return (
         <Card 
+            product = {product}
             key = {index}
             id = {product.id}
             img={product.img}
@@ -15,7 +16,6 @@ function CardList( { products, cart, handleAddToCart, handleRemoveFromCart, isCa
             cart = {cart}
             onAddToCart = {handleAddToCart}
             onRemoveFromCart = {handleRemoveFromCart}
-            isCartPage={isCartPage}
         />)
     })
 

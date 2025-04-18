@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { isCartPageContext } from './App';
 
-function AddToCart({ product, cart, onAddToCart, onRemoveFromCart, isCartPage}) {
-    console.log(cart);
-
+function AddToCart({ product, cart, onAddToCart, onRemoveFromCart}) {
     const cartItem = cart.find(item => item.id === product.id);
+    const isCartPage = useContext(isCartPageContext);
 
     return(
         <>  
