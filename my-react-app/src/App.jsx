@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,14 +13,33 @@ import Cart from './pages/Cart.jsx'
 
 function App() {
 
-  const products = [
-    {id:1, img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:"$30.00"},
-    {id:2, img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:"$100.00"},
-    {id:3, img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:"$130.00"}
+  const rawProducts = [
+    {img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:30.00},
+    {img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:100.00},
+    {img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:130.00}];
 
-  ];
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    const productsWithId = rawProducts.map(product => ({...product, id: crypto.randomUUID()}));
+    setProducts(productsWithId);
+  }, [])
+  
+  const [cart, setCart] = useState([]);
+  
+  const handleAddToCart = (product) => {
+    const productWithCartId = {...product, cartId: crypto.randomUUID()}
+    console.log(productWithCartId);
+    setCart([...cart, productWithCartId]);
+    
+    console.log("Cart:", productWithCartId);
+  };
 
-  const cart = [];
+  const handleRemoveFromCart = (product) => {
+    console.log(cart);
+    setCart(cart.filter(item => {
+      return item.cartId !== product.cartId}))
+  }
 
   return (
     <>
@@ -29,12 +48,12 @@ function App() {
         <Route path="/" element={
           <>
             <Banner src="maleModel.webp" alt="modelBanner" src2="modelBanner.jpg" />
-            <CardList products={products} />
+            <CardList products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} isCartPage={false}/>
           </>
           
         } />
         <Route path="/sign-in" element={<SignIn />}/> 
-        <Route path="/cart" element={<Cart />}/> 
+        <Route path="/cart" element={<Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>}/> 
       </Routes>
       
     </>
