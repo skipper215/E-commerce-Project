@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom"
 
-function Nav() {
+function Nav({isLoggedIn}) {
     return(
         <>
             <nav className="navbar">
@@ -15,7 +15,9 @@ function Nav() {
 
                 <div className="account"> 
                     <ul className="account-links"> 
-                        <li><Link to="/sign-in"> Sign In </Link></li>
+                        {isLoggedIn ? 
+                        (<li><Link to="/account"> Account </Link></li>) : 
+                        (<li><Link to="/sign-in"> Sign In </Link></li>)}
                         <li><Link to="/cart"> Cart </Link></li>
                     </ul>
                 </div>

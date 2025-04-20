@@ -8,11 +8,13 @@ import Banner from './Banner.jsx'
 import SignIn from './pages/SignIn.jsx'
 import Cart from './pages/Cart.jsx'
 import LocalStorage from './LocalStorage.jsx'
+import SignUp from './pages/SignUp.jsx'
+import Account from './pages/Account.jsx'
 
 export const isCartPageContext = createContext(false);
 
 function App() {
-
+  // Products 
   const rawProducts = [
     {img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:30.00},
     {img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:100.00},
@@ -26,8 +28,9 @@ function App() {
     setProducts(productsWithId);
   }, [])
   
+  // Cart 
   const [cart, setCart] = LocalStorage("cart", []);
-  
+
   const handleAddToCart = (product) => {
     const productWithCartId = {...product, cartId: crypto.randomUUID()}
     setCart([...cart, productWithCartId]);
@@ -41,10 +44,13 @@ function App() {
       return item.cartId !== product.cartId}))
   }
 
+  // Login
+  const [isLoggedIn, setIsLoggedIn] = LocalStorage("isLoggedIn", false); 
+
 
   return (
     <>
-      <Nav /> 
+      <Nav isLoggedIn={isLoggedIn}/> 
       <Routes> 
         <Route path="/" element={
           <>
@@ -53,7 +59,9 @@ function App() {
           </>
           
         } />
-        <Route path="/sign-in" element={<SignIn />}/> 
+        
+        {isLoggedIn ? (<Route path="/account" element={ <Account />} />) :
+                      (<Route path="/sign-in" element={ <SignIn setIsLoggedIn={setIsLoggedIn}></SignIn>}/> )}
         <Route path="/cart" element={
           <isCartPageContext.Provider value={true}>
             <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>
