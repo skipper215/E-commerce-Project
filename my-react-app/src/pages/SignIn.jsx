@@ -3,22 +3,16 @@ import LocalStorage from "../LocalStorage";
 import SignUp from "./SignUp";
 import { useNavigate } from 'react-router-dom';
 
-function SignIn({ setIsLoggedIn }) {
-    console.log(setIsLoggedIn);
+function SignIn({ setIsLoggedIn, user, setUser }) {
     const navigate = useNavigate();
-    const [user, setUser] = LocalStorage("user", [{key: "guest", value:"guest"}]);
 
     const handleSubmit = (e) => {
-        //localStorage.clear(); // Resets everything (use carefully)
         e.preventDefault(); // Stop the form from reloading the page
-        // check the database (user and pass variable here) for the user and pass  
+        // check the array
         const userInput = e.target.user.value;
         const passwordInput = e.target.password.value;
         console.log("Submitted:", { user });
         user.forEach((account) => {
-            console.log(account)
-            console.log(account.key)
-            console.log(account.value)
             if(account.key === userInput && account.value === passwordInput) {
                 console.log("valid account");
                 setIsLoggedIn(true);
@@ -49,6 +43,8 @@ function SignIn({ setIsLoggedIn }) {
 
                 <button type="submit">Submit</button> 
             </form>
+
+            <SignUp setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>
 
         </>
     );

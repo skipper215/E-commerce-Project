@@ -8,7 +8,6 @@ import Banner from './Banner.jsx'
 import SignIn from './pages/SignIn.jsx'
 import Cart from './pages/Cart.jsx'
 import LocalStorage from './LocalStorage.jsx'
-import SignUp from './pages/SignUp.jsx'
 import Account from './pages/Account.jsx'
 
 export const isCartPageContext = createContext(false);
@@ -47,6 +46,7 @@ function App() {
   // Login
   const [isLoggedIn, setIsLoggedIn] = LocalStorage("isLoggedIn", false); 
 
+  const [user, setUser] = LocalStorage("user", [{key: "guest", value:"guest"}]);
 
   return (
     <>
@@ -60,8 +60,8 @@ function App() {
           
         } />
         
-        {isLoggedIn ? (<Route path="/account" element={ <Account />} />) :
-                      (<Route path="/sign-in" element={ <SignIn setIsLoggedIn={setIsLoggedIn}></SignIn>}/> )}
+        {isLoggedIn ? (<Route path="/account" element={ <Account setIsLoggedIn={setIsLoggedIn}/>} />) :
+                      (<Route path="/sign-in" element={ <SignIn setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}></SignIn>}/> )}
         <Route path="/cart" element={
           <isCartPageContext.Provider value={true}>
             <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>
