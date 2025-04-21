@@ -2,6 +2,7 @@
 import LocalStorage from "../LocalStorage";
 import SignUp from "./SignUp";
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function SignIn({ setIsLoggedIn, user, setUser }) {
     const navigate = useNavigate();
@@ -44,7 +45,8 @@ function SignIn({ setIsLoggedIn, user, setUser }) {
                 <button type="submit">Submit</button> 
             </form>
 
-            <SignUp setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>
+            <h2>Not a member yet? Sign up here!</h2>
+            <p><Link to="/sign-up">Create an account</Link></p> 
 
         </>
     );

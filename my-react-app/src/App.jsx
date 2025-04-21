@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn.jsx'
 import Cart from './pages/Cart.jsx'
 import LocalStorage from './LocalStorage.jsx'
 import Account from './pages/Account.jsx'
+import SignUp from './pages/SignUp.jsx'
 
 export const isCartPageContext = createContext(false);
 
@@ -67,6 +68,7 @@ function App() {
             <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}/>
           </isCartPageContext.Provider>
           }/> 
+        <Route path="/sign-up" element={<SignUp setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>} />
       </Routes>
       
     </>
