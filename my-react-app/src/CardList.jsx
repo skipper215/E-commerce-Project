@@ -1,6 +1,6 @@
 import Card from './Card.jsx'
 
-function CardList( { products, cart, handleAddToCart, handleRemoveFromCart, isCartPage }) {
+function CardList( { products, cart, handleAddToCart, handleRemoveFromCart}) {
     // each product in products mapped as a Card component
 
     const productList = products.map((product, index) => {
@@ -13,6 +13,7 @@ function CardList( { products, cart, handleAddToCart, handleRemoveFromCart, isCa
             name = {product.name}
             alt = {product.alt}
             price = {product.price}
+            loc = {product.loc}
             cart = {cart}
             onAddToCart = {handleAddToCart}
             onRemoveFromCart = {handleRemoveFromCart}

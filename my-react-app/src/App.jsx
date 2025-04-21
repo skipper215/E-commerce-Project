@@ -10,15 +10,17 @@ import Cart from './pages/Cart.jsx'
 import LocalStorage from './LocalStorage.jsx'
 import Account from './pages/Account.jsx'
 import SignUp from './pages/SignUp.jsx'
+import Search from './Search.jsx'
+import Featured from './pages/Featured.jsx'
 
 export const isCartPageContext = createContext(false);
 
 function App() {
   // Products 
   const rawProducts = [
-    {img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:30.00},
-    {img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:100.00},
-    {img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:130.00}
+    {img:"cargoPants.jpg", alt:"cargoPants", name:"Cargo Pants", price:30.00, loc:["/", "featured"]},
+    {img:"mens-blazer.webp", alt:"mens-blazer", name: "Mens Blazer", price:100.00, loc:["/"]},
+    {img:"zara-womens-blazer.webp", alt:"female-blazer", name:"Silk Blazer", price:130.00, loc:["featured"]}
   ];
 
   const [products, setProducts] = useState([]);
@@ -52,11 +54,12 @@ function App() {
   return (
     <>
       <Nav isLoggedIn={isLoggedIn}/> 
+      <Search products={products}/>
       <Routes> 
         <Route path="/" element={
           <>
             <Banner src="maleModel.webp" alt="modelBanner" src2="modelBanner.jpg" />
-            <CardList products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} isCartPage={false}/>
+            <CardList products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart}/>
           </>
           
         } />
@@ -69,6 +72,7 @@ function App() {
           </isCartPageContext.Provider>
           }/> 
         <Route path="/sign-up" element={<SignUp setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>} />
+        <Route path="/featured" element={<Featured products={products} cart={cart} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart}/>} />
       </Routes>
       
     </>

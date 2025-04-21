@@ -93,3 +93,23 @@
   text-decoration: none;
   color: white;
 }
+
+.search-input {
+  margin: 10px auto;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 5px;
+  width: 50%;
+  display: block;
+
+}
+
+.suggestions {
+  display: flex;
+  gap: 20px;
+
+}
+
+.suggestions li {
+  list-style: none;
+}

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import AddToCart from './AddToCart.jsx'
 
-function Card({ product, cart, onAddToCart, onRemoveFromCart, isCartPage }) {
+function Card({ product, cart, onAddToCart, onRemoveFromCart}) {
 
   return (
     <div className="card">

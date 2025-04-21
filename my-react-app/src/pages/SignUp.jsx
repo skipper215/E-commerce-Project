@@ -17,6 +17,8 @@ function SignUp({ setIsLoggedIn, user, setUser }) {
             setError("email address already exists");
         } else if(!passwordInput) {
             setError("No password entered!");
+        } else if(!userInput.includes("@")) {
+            setError("Email must include '@'");
         } else {
             setUser([...user, {key: userInput, value: passwordInput}])
             setIsLoggedIn(true);
